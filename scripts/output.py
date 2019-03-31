@@ -1,13 +1,14 @@
 import subprocess
 import json
-provider = "aws"
+from utils import get_region, init_tf, PROVIDER
 
-subprocess.call(['terraform', 'init', '-input=false',
-                 '-backend-config=./deployment-variables/backend.tfvars'],
-                cwd=f'./terraform/{provider}')
+
+init_tf()
+
+region = get_region()
 
 tf_output = subprocess.Popen(['terraform', 'output', '-json'],
-                             cwd=f'./terraform/{provider}',
+                             cwd=f'../terraform/{PROVIDER}',
                              stdout=subprocess.PIPE)
 
 
@@ -17,6 +18,6 @@ jq = subprocess.Popen(['jq', 'with_entries(.value |= .value)'],
                       )
 
 result = json.load(jq.stdout)
-
+print(f"Terraform info:\n{json.dumps(result,sort_keys=True, indent=4)}")
 with open('../infra.json', 'w') as file:
-    json.dump(result, file)
+    json.dump(result, file, sort_keys=True, indent=4)
