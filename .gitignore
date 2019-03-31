@@ -6,7 +6,7 @@
 *.tfstate.*
 
 # .tfvars files
-*.tfvars
+secrets.tfvars
 
 # python
 __pycache__

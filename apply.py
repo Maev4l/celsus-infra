@@ -8,6 +8,7 @@ region = get_region()
 
 subprocess.run(['terraform', 'apply', '-input=false', '-auto-approve',
                 '-lock=true',
-                f'-var-file=./deployment-variables/{region}/infra.tfvars'],
-               cwd=f'../terraform/{PROVIDER}',
+                f'-var-file=./deployment-variables/{region}/infra.tfvars',
+                f'-var-file=./deployment-variables/{region}/secrets.tfvars'],
+               cwd=f'./terraform/{PROVIDER}',
                check=True)

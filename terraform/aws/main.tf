@@ -9,16 +9,20 @@ provider "aws" {
 data "aws_availability_zones" "available" {}
 
 resource "aws_vpc" "main_vpc" {
-  cidr_block           = "${var.main_vpc_cidr_block}"
+  cidr_block           = "${var.main_vpc_cidr_block_prefix}.0.0/16"
   enable_dns_hostnames = true
 
   tags = "${local.tags}"
 }
-
-resource "aws_subnet" "main_vpc_subnet_1" {
+locals {
+  subnet_count = 3
+}
+resource "aws_subnet" "main_vpc_subnets" {
   vpc_id            = "${aws_vpc.main_vpc.id}"
-  cidr_block        = "${cidrsubnet(var.main_vpc_cidr_block,8,1)}"
-  availability_zone = "${data.aws_availability_zones.available.names[0]}"
+  count             = "3"
+  // cidr_block              = "10.0.${local.subnet_count * (var.infrastructure_version - 1) + count.index + 1}.0/24"
+  cidr_block        = "${var.main_vpc_cidr_block_prefix}.${count.index * 16}.0/20"
+  availability_zone = "${element(data.aws_availability_zones.available.names, count.index)}"
 
   tags = "${local.tags}"
 }

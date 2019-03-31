@@ -19,5 +19,5 @@ def get_region():
 def init_tf():
     subprocess.run(['terraform', 'init', '-input=false',
                     f'-backend-config=./deployment-variables/backend.tfvars'],
-                   cwd=f'../terraform/{PROVIDER}',
+                   cwd=f'./terraform/{PROVIDER}',
                    check=True)

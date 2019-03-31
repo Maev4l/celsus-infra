@@ -1,6 +1,6 @@
 locals {
   tags = {
-    name  = "celsus"
+    application  = "celsus"
     owner = "terraform"
   }
 }

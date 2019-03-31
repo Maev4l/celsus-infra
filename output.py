@@ -8,7 +8,7 @@ init_tf()
 region = get_region()
 
 tf_output = subprocess.Popen(['terraform', 'output', '-json'],
-                             cwd=f'../terraform/{PROVIDER}',
+                             cwd=f'./terraform/{PROVIDER}',
                              stdout=subprocess.PIPE)
 
 
