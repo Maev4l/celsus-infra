@@ -2,8 +2,16 @@ output "mainVPC" {
   value = "${aws_vpc.main_vpc.id}"
 }
 
-output "mainVPCSubnets" {
-  value = "${aws_subnet.main_vpc_subnets.*.id}"
+output "mainVPCSubnet1" {
+  value = "${aws_subnet.main_vpc_subnets.0.id}"
+}
+
+output "mainVPCSubnet2" {
+  value = "${aws_subnet.main_vpc_subnets.1.id}"
+}
+
+output "mainVPCSubnet3" {
+  value = "${aws_subnet.main_vpc_subnets.2.id}"
 }
 
 output "region" {
@@ -16,6 +24,10 @@ output "availabilityZones" {
 
 output "mainVPCDefaultSecurityGroup" {
   value = "${aws_vpc.main_vpc.default_security_group_id}"
+}
+
+output "coreStorageSecurityGroup" {
+  value = "${aws_security_group.core_storage_security_group.id}"
 }
 
 output "coreStorageHostname" {
