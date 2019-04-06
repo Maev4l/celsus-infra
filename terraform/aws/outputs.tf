@@ -14,6 +14,10 @@ output "main-vpc-default-security-group" {
   value = "${aws_vpc.main_vpc.default_security_group_id}"
 }
 
+output "core-storage-address" {
+  value = "${aws_db_instance.core_storage.address}"
+}
+
 output "sns-books-topic" {
   value = "${aws_sns_topic.books_updates.id}"
 }

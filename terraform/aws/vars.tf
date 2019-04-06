@@ -23,7 +23,7 @@ variable "core_storage_port" {
   description = "Port number for core storage"
 }
 
-variable "local_ip" {
-  type        = "string"
+variable "local_ips" {
+  type        = "list"
   description = "Local machine IP address"
 }
