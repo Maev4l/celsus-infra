@@ -1,6 +1,6 @@
 import subprocess
 import json
-from utils import get_environment, init_tf, PROVIDER
+from utils import get_environment, init_tf, save_infra_description, PROVIDER
 
 
 init_tf()
@@ -19,5 +19,7 @@ jq = subprocess.Popen(['jq', 'with_entries(.value |= .value)'],
 
 result = json.load(jq.stdout)
 print(f"Terraform info:\n{json.dumps(result,sort_keys=True, indent=4)}")
-with open('../infra.json', 'w') as file:
+with open('infra.json', 'w') as file:
     json.dump(result, file, sort_keys=True, indent=4)
+
+save_infra_description('infra.json')

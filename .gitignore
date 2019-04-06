@@ -10,3 +10,6 @@ secrets.tfvars
 
 # python
 __pycache__
+
+# Terraform output
+infra.json
