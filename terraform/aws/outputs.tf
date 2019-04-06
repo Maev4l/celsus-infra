@@ -6,6 +6,10 @@ output "main-vpc-subnets" {
   value = "${aws_subnet.main_vpc_subnets.*.id}"
 }
 
+output "region" {
+  value = "${var.region}"
+}
+
 output "availability-zone-1" {
   value = "${data.aws_availability_zones.available.names[0]}"
 }
