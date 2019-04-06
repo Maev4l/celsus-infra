@@ -22,3 +22,8 @@ variable "core_storage_port" {
   type        = "string"
   description = "Port number for core storage"
 }
+
+variable "local_ip" {
+  type        = "string"
+  description = "Local machine IP address"
+}

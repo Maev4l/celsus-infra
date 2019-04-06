@@ -4,20 +4,20 @@ import subprocess
 PROVIDER = 'aws'
 
 parser = argparse.ArgumentParser()
-parser.add_argument("--region",
+parser.add_argument("--environment",
                     type=str,
-                    choices=['eu-west-1', 'eu-west-3'],
-                    help="Specify the deployment region")
+                    choices=['dev'],
+                    help="Specify the deployment environment")
 
 args = parser.parse_args()
 
 
-def get_region():
-    return args.region
+def get_environment():
+    return args.environment
 
 
 def init_tf():
     subprocess.run(['terraform', 'init', '-input=false',
-                    f'-backend-config=./deployment-variables/backend.tfvars'],
+                    f'-backend-config=./deployment-variables/{args.environment}/backend.tfvars'],
                    cwd=f'./terraform/{PROVIDER}',
                    check=True)

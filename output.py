@@ -1,11 +1,11 @@
 import subprocess
 import json
-from utils import get_region, init_tf, PROVIDER
+from utils import get_environment, init_tf, PROVIDER
 
 
 init_tf()
 
-region = get_region()
+environment = get_environment()
 
 tf_output = subprocess.Popen(['terraform', 'output', '-json'],
                              cwd=f'./terraform/{PROVIDER}',
