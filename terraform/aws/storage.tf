@@ -1,7 +1,7 @@
 // Storage for core services
 resource "aws_db_subnet_group" "core_storage_subnet_group" {
   name       = "core_storage_subnet_group"
-  subnet_ids = ["${aws_subnet.main_vpc_subnets.*.id}"]
+  subnet_ids = ["${aws_subnet.main_vpc_subnet_1.id}", "${aws_subnet.main_vpc_subnet_2.id}", "${aws_subnet.main_vpc_subnet_3.id}"]
 
   tags = "${local.tags}"
 }

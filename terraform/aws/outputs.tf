@@ -3,15 +3,15 @@ output "mainVPC" {
 }
 
 output "mainVPCSubnet1" {
-  value = "${aws_subnet.main_vpc_subnets.0.id}"
+  value = "${aws_subnet.main_vpc_subnet_1.id}"
 }
 
 output "mainVPCSubnet2" {
-  value = "${aws_subnet.main_vpc_subnets.1.id}"
+  value = "${aws_subnet.main_vpc_subnet_2.id}"
 }
 
 output "mainVPCSubnet3" {
-  value = "${aws_subnet.main_vpc_subnets.2.id}"
+  value = "${aws_subnet.main_vpc_subnet_3.id}"
 }
 
 output "region" {
