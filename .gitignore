@@ -12,4 +12,4 @@ secrets.tfvars
 __pycache__
 
 # Terraform output
-infra.json
+infra.*.json

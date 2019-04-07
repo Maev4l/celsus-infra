@@ -1,6 +1,7 @@
 locals {
   tags = {
-    application  = "celsus"
-    owner = "terraform"
+    application = "celsus"
+    owner       = "terraform"
+    deployment  = "${var.environment}"
   }
 }

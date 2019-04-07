@@ -3,6 +3,11 @@ variable "region" {
   description = "Deployment region"
 }
 
+variable "environment" {
+  type        = "string"
+  description = "Deployment environment name (eg. dev, test,prod, etc ..)"
+}
+
 variable "main_vpc_cidr_block_prefix" {
   type        = "string"
   description = "Main VPC CIDR block prefix"

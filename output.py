@@ -19,7 +19,8 @@ jq = subprocess.Popen(['jq', 'with_entries(.value |= .value)'],
 
 result = json.load(jq.stdout)
 print(f"Terraform info:\n{json.dumps(result,sort_keys=True, indent=4)}")
-with open('infra.json', 'w') as file:
+filename = f'infra.{environment}.json'
+with open(filename, 'w') as file:
     json.dump(result, file, sort_keys=True, indent=4)
 
-save_infra_description('infra.json')
+save_infra_description(filename)
