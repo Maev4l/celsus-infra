@@ -41,6 +41,8 @@ resource "aws_db_instance" "core_storage" {
   username                   = "${var.core_storage_username}"
   password                   = "${var.core_storage_password}"
   port                       = "${var.core_storage_port}"
-
-  tags = "${local.tags}"
+  copy_tags_to_snapshot      = "true"
+  backup_retention_period    = "7"
+  backup_window              = "03:00-06:00"
+  tags                       = "${local.tags}"
 }
