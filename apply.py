@@ -1,5 +1,5 @@
 import subprocess
-from utils import get_environment, init_tf, PROVIDER
+from utils import get_environment, init_tf, output_tf, save_infra_description, PROVIDER
 
 
 init_tf()
@@ -12,3 +12,7 @@ subprocess.run(['terraform', 'apply', '-input=false', '-auto-approve',
                 f'-var-file=./deployment-variables/{environment}/secrets.tfvars'],
                cwd=f'./terraform/{PROVIDER}',
                check=True)
+
+filename = output_tf(printJson=False)
+
+save_infra_description(filename)

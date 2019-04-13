@@ -42,6 +42,18 @@ output "hostedZone" {
   value = "${data.aws_route53_zone.hosted_zone.zone_id}"
 }
 
+output "userPoolArn" {
+  value = "${aws_cognito_user_pool.user_pool.arn}"
+}
+
+output "userPoolId" {
+  value = "${aws_cognito_user_pool.user_pool.id}"
+}
+
+output "userPoolClient" {
+  value = "${aws_cognito_user_pool_client.client.id}"
+}
+
 output "messagingBooksTopic" {
   value = "${aws_sns_topic.books_updates.id}"
 }
