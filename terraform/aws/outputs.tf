@@ -54,6 +54,10 @@ output "userPoolClient" {
   value = "${aws_cognito_user_pool_client.client.id}"
 }
 
+output "environment" {
+  value = "${var.environment}"
+}
+
 output "messagingBooksTopic" {
   value = "${aws_sns_topic.books_updates.id}"
 }
