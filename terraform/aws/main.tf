@@ -10,7 +10,7 @@ data "aws_availability_zones" "available" {}
 
 resource "aws_vpc" "main_vpc" {
   cidr_block           = "${var.main_vpc_cidr_block_prefix}.0.0/16"
-  enable_dns_hostnames = true
+  enable_dns_hostnames = "true"
 
   tags = "${local.tags}"
 }

@@ -26,3 +26,14 @@ resource "aws_cognito_user_pool_client" "client" {
   user_pool_id        = "${aws_cognito_user_pool.user_pool.id}"
   explicit_auth_flows = ["USER_PASSWORD_AUTH"]
 }
+
+resource "aws_cognito_identity_pool" "identity_pool" {
+  identity_pool_name               = "celsus_identity_pool"
+  allow_unauthenticated_identities = "false"
+
+  cognito_identity_providers {
+    provider_name           = "${aws_cognito_user_pool.user_pool.endpoint}"
+    client_id               = "${aws_cognito_user_pool_client.client.id}"
+    server_side_token_check = "true"
+  }
+}

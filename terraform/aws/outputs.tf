@@ -54,6 +54,10 @@ output "userPoolClient" {
   value = "${aws_cognito_user_pool_client.client.id}"
 }
 
+output "userIdentityPool" {
+  value = "${aws_cognito_identity_pool.identity_pool.id}"
+}
+
 output "environment" {
   value = "${var.environment}"
 }
