@@ -38,6 +38,10 @@ output "lambdaExecutionRoleArn" {
   value = "${data.aws_iam_role.lambda_vpc_execution_role.arn}"
 }
 
+output "hostedZone" {
+  value = "${data.aws_route53_zone.hosted_zone.zone_id}"
+}
+
 output "messagingBooksTopic" {
   value = "${aws_sns_topic.books_updates.id}"
 }
