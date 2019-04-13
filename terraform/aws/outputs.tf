@@ -39,7 +39,7 @@ output "lambdaExecutionRoleArn" {
 }
 
 output "hostedZone" {
-  value = "${data.aws_route53_zone.hosted_zone.zone_id}"
+  value = "${data.aws_route53_zone.primary.zone_id}"
 }
 
 output "userPoolArn" {
@@ -60,4 +60,12 @@ output "environment" {
 
 output "messagingBooksTopic" {
   value = "${aws_sns_topic.books_updates.id}"
+}
+
+output "webClientStaticHost" {
+  value = "${aws_s3_bucket.web_app.bucket_regional_domain_name}"
+}
+
+output "webClientDistribution" {
+  value = "${aws_cloudfront_distribution.web_app_distribution.id}"
 }
