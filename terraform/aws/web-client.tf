@@ -1,9 +1,33 @@
+locals {
+  bucket_name = "celsus.isnan.eu"
+}
+
+data "template_file" "web_app_bucket_policy" {
+  template = <<EOF
+  {
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "AddPerm",
+      "Effect": "Allow",
+      "Principal": "*",
+      "Action": "s3:GetObject",
+      "Resource": "arn:aws:s3:::$${bucket}/*"
+    }
+  ]
+}EOF
+
+  vars {
+    bucket = "${local.bucket_name}"
+  }
+}
+
 resource "aws_s3_bucket" "web_app" {
-  bucket = "celsus.isnan.eu"
+  bucket = "${local.bucket_name}"
   acl    = "public-read"
   region = "${var.region}"
 
-  policy = "${file("web-client-policy.json")}"
+  policy = "${data.template_file.web_app_bucket_policy.rendered}"
 
   website = {
     index_document = "index.html"
