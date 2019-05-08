@@ -1,3 +1,4 @@
+#! /usr/bin/env python3
 import subprocess
 from utils import get_environment, init_tf, output_tf, save_infra_description, PROVIDER
 
