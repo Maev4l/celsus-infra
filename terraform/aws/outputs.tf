@@ -30,6 +30,10 @@ output "coreStorageSecurityGroup" {
   value = "${aws_security_group.core_storage_security_group.id}"
 }
 
+output "certificate" {
+  value = "${data.aws_acm_certificate.main_certificate.arn}"
+}
+
 output "coreStorageHostname" {
   value = "${aws_db_instance.core_storage.address}"
 }
