@@ -1,5 +1,9 @@
-bucket="celsus-tf-state"
-region="eu-west-2"
-key="celsus/dev/terraform.tfstate"
-encrypt="true"
-dynamodb_table="lock-terraform-state"
+bucket = "celsus-tf-state"
+
+region = "eu-central-1"
+
+key = "celsus/dev/terraform.tfstate"
+
+encrypt = "true"
+
+dynamodb_table = "lock-terraform-state"
