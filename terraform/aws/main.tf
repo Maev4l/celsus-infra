@@ -70,15 +70,30 @@ resource "aws_route_table_association" "main_vpc_route_table_association_1" {
   route_table_id = aws_route_table.main_vpc_route_table.id
 }
 
-/*
-resource "aws_default_route_table" "main_vpc_internet_gateway" {
-  default_route_table_id = "${aws_vpc.main_vpc.default_route_table_id}"
-
-  route {
-    cidr_block = "0.0.0.0/0"
-    gateway_id = "${aws_internet_gateway.main_vpc_internet_gateway.id}"
-  }
-
-  tags = "${local.tags}"
+data "template_file" "main_vpc_endpoint_message_queues_policy" {
+  template = <<EOF
+  {
+  "Version": "2012-10-17",
+  "Statement": [{
+      "Action": ["sqs:SendMessage"],
+      "Effect": "Allow",
+      "Resource": "*",
+      "Principal": "*"
+   }]
 }
-*/
+EOF
+
+}
+
+resource "aws_vpc_endpoint" "main_vpc_endpoint_message_queues" {
+  vpc_id = aws_vpc.main_vpc.id
+  vpc_endpoint_type = "Interface"
+  service_name = "com.amazonaws.${var.region}.sqs"
+  subnet_ids = [aws_subnet.main_vpc_subnet_2.id]
+  security_group_ids = [aws_vpc.main_vpc.default_security_group_id]
+  private_dns_enabled = true
+
+  policy = data.template_file.main_vpc_endpoint_message_queues_policy.rendered
+
+  // TODO incoming in future: tags = local.tags
+}

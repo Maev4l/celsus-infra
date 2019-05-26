@@ -66,8 +66,28 @@ output "environment" {
   value = var.environment
 }
 
-output "messagingBooksTopic" {
-  value = aws_sns_topic.books_updates.id
+output "coreQueueArn" {
+  value = aws_sqs_queue.core_queue.arn
+}
+
+output "coreQueueUrl" {
+  value = aws_sqs_queue.core_queue.id
+}
+
+output "contactsQueueArn" {
+  value = aws_sqs_queue.contacts_queue.arn
+}
+
+output "contactsQueueUrl" {
+  value = aws_sqs_queue.contacts_queue.id
+}
+
+output "lendingsQueueArn" {
+  value = aws_sqs_queue.lendings_queue.arn
+}
+
+output "lendingsQueueUrl" {
+  value = aws_sqs_queue.lendings_queue.id
 }
 
 output "webClientStaticHost" {
