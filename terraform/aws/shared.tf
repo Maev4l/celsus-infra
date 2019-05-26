@@ -3,41 +3,41 @@
 resource "aws_ssm_parameter" "core_storage_hostname" {
   name        = "core_storage_hostname_${var.environment}"
   type        = "SecureString"
-  value       = "${aws_db_instance.core_storage.address}"
+  value       = aws_db_instance.core_storage.address
   description = "Hostname for the core storage"
   overwrite   = "true"
 
-  tags = "${local.tags}"
+  tags = local.tags
 }
 
 resource "aws_ssm_parameter" "core_storage_port" {
   name        = "core_storage_port_${var.environment}"
   type        = "SecureString"
-  value       = "${aws_db_instance.core_storage.port}"
+  value       = aws_db_instance.core_storage.port
   description = "Port for the core storage"
   overwrite   = "true"
 
-  tags = "${local.tags}"
+  tags = local.tags
 }
 
 resource "aws_ssm_parameter" "core_storage_username" {
   name        = "core_storage_username_${var.environment}"
   type        = "SecureString"
-  value       = "${aws_db_instance.core_storage.username}"
+  value       = aws_db_instance.core_storage.username
   description = "Username for the core storage"
   overwrite   = "true"
 
-  tags = "${local.tags}"
+  tags = local.tags
 }
 
 resource "aws_ssm_parameter" "core_storage_password" {
   name        = "core_storage_password_${var.environment}"
   type        = "SecureString"
-  value       = "${aws_db_instance.core_storage.password}"
+  value       = aws_db_instance.core_storage.password
   description = "Password for the core storage"
   overwrite   = "true"
 
-  tags = "${local.tags}"
+  tags = local.tags
 }
 
 resource "aws_ssm_parameter" "core_storage_database" {
@@ -47,7 +47,7 @@ resource "aws_ssm_parameter" "core_storage_database" {
   description = "Database name for the core storage"
   overwrite   = "true"
 
-  tags = "${local.tags}"
+  tags = local.tags
 }
 
 resource "aws_ssm_parameter" "core_storage_schema" {
@@ -57,47 +57,47 @@ resource "aws_ssm_parameter" "core_storage_schema" {
   description = "Schema name for the core storage"
   overwrite   = "true"
 
-  tags = "${local.tags}"
+  tags = local.tags
 }
 
 resource "aws_ssm_parameter" "contact_storage_hostname" {
   name        = "contact_storage_hostname_${var.environment}"
   type        = "SecureString"
-  value       = "${aws_db_instance.core_storage.address}"
+  value       = aws_db_instance.core_storage.address
   description = "Hostname for the contact storage"
   overwrite   = "true"
 
-  tags = "${local.tags}"
+  tags = local.tags
 }
 
 resource "aws_ssm_parameter" "contact_storage_port" {
   name        = "contact_storage_port_${var.environment}"
   type        = "SecureString"
-  value       = "${aws_db_instance.core_storage.port}"
+  value       = aws_db_instance.core_storage.port
   description = "Port for the contact storage"
   overwrite   = "true"
 
-  tags = "${local.tags}"
+  tags = local.tags
 }
 
 resource "aws_ssm_parameter" "contact_storage_username" {
   name        = "contact_storage_username_${var.environment}"
   type        = "SecureString"
-  value       = "${aws_db_instance.core_storage.username}"
+  value       = aws_db_instance.core_storage.username
   description = "Username for the contact storage"
   overwrite   = "true"
 
-  tags = "${local.tags}"
+  tags = local.tags
 }
 
 resource "aws_ssm_parameter" "contact_storage_password" {
   name        = "contact_storage_password_${var.environment}"
   type        = "SecureString"
-  value       = "${aws_db_instance.core_storage.password}"
+  value       = aws_db_instance.core_storage.password
   description = "Password for the contact storage"
   overwrite   = "true"
 
-  tags = "${local.tags}"
+  tags = local.tags
 }
 
 resource "aws_ssm_parameter" "contact_storage_database" {
@@ -107,7 +107,7 @@ resource "aws_ssm_parameter" "contact_storage_database" {
   description = "Database name for the contact storage"
   overwrite   = "true"
 
-  tags = "${local.tags}"
+  tags = local.tags
 }
 
 resource "aws_ssm_parameter" "contact_storage_schema" {
@@ -117,5 +117,6 @@ resource "aws_ssm_parameter" "contact_storage_schema" {
   description = "Schema name for the contact storage"
   overwrite   = "true"
 
-  tags = "${local.tags}"
+  tags = local.tags
 }
+

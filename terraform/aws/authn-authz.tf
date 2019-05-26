@@ -1,7 +1,7 @@
 resource "aws_cognito_user_pool" "user_pool" {
   name = "celsus_user_pool"
 
-  password_policy = {
+  password_policy {
     minimum_length    = "8"
     require_lowercase = "true"
     require_numbers   = "true"
@@ -9,21 +9,21 @@ resource "aws_cognito_user_pool" "user_pool" {
     require_uppercase = "true"
   }
 
-  admin_create_user_config = {
+  admin_create_user_config {
     allow_admin_create_user_only = "false"
     unused_account_validity_days = "7"
   }
 
-  user_pool_add_ons = {
+  user_pool_add_ons {
     advanced_security_mode = "OFF"
   }
 
-  tags = "${local.tags}"
+  tags = local.tags
 }
 
 resource "aws_cognito_user_pool_client" "client" {
   name                = "celsus_client"
-  user_pool_id        = "${aws_cognito_user_pool.user_pool.id}"
+  user_pool_id        = aws_cognito_user_pool.user_pool.id
   explicit_auth_flows = ["USER_PASSWORD_AUTH"]
 }
 
@@ -32,8 +32,8 @@ resource "aws_cognito_identity_pool" "identity_pool" {
   allow_unauthenticated_identities = "false"
 
   cognito_identity_providers {
-    provider_name           = "${aws_cognito_user_pool.user_pool.endpoint}"
-    client_id               = "${aws_cognito_user_pool_client.client.id}"
+    provider_name           = aws_cognito_user_pool.user_pool.endpoint
+    client_id               = aws_cognito_user_pool_client.client.id
     server_side_token_check = "true"
   }
 }
@@ -62,22 +62,23 @@ data "template_file" "identity_pool_auth_role_policy" {
 }
 EOF
 
-  vars {
-    cognito_identity_pool_id = "${aws_cognito_identity_pool.identity_pool.id}"
+
+  vars = {
+    cognito_identity_pool_id = aws_cognito_identity_pool.identity_pool.id
   }
 }
 
 resource "aws_iam_role" "identity_pool_auth_role" {
   name = "celsus_identity_authenticated_role"
 
-  assume_role_policy = "${data.template_file.identity_pool_auth_role_policy.rendered}"
+  assume_role_policy = data.template_file.identity_pool_auth_role_policy.rendered
 
-  tags = "${local.tags}"
+  tags = local.tags
 }
 
 resource "aws_iam_role_policy" "authenticated" {
   name = "celsus_identity_authenticated_policy"
-  role = "${aws_iam_role.identity_pool_auth_role.id}"
+  role = aws_iam_role.identity_pool_auth_role.id
 
   policy = <<EOF
 {
@@ -97,10 +98,11 @@ resource "aws_iam_role_policy" "authenticated" {
     ]
 }
 EOF
+
 }
 
 data "template_file" "identity_pool_unauth_role_policy" {
-  template = <<EOF
+template = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -123,24 +125,25 @@ data "template_file" "identity_pool_unauth_role_policy" {
 }
 EOF
 
-  vars {
-    cognito_identity_pool_id = "${aws_cognito_identity_pool.identity_pool.id}"
-  }
+
+vars = {
+cognito_identity_pool_id = aws_cognito_identity_pool.identity_pool.id
+}
 }
 
 resource "aws_iam_role" "identity_pool_unauth_role" {
-  name = "celsus_identity_unauthenticated_role"
+name = "celsus_identity_unauthenticated_role"
 
-  assume_role_policy = "${data.template_file.identity_pool_unauth_role_policy.rendered}"
+assume_role_policy = data.template_file.identity_pool_unauth_role_policy.rendered
 
-  tags = "${local.tags}"
+tags = local.tags
 }
 
 resource "aws_iam_role_policy" "unauthenticated" {
-  name = "celsus_identity_unauthenticated_policy"
-  role = "${aws_iam_role.identity_pool_unauth_role.id}"
+name = "celsus_identity_unauthenticated_policy"
+role = aws_iam_role.identity_pool_unauth_role.id
 
-  policy = <<EOF
+policy = <<EOF
 {
     "Version": "2012-10-17",
     "Statement": [
@@ -157,13 +160,15 @@ resource "aws_iam_role_policy" "unauthenticated" {
     ]
 }
 EOF
+
 }
 
 resource "aws_cognito_identity_pool_roles_attachment" "identity_pool_roles_main" {
-  identity_pool_id = "${aws_cognito_identity_pool.identity_pool.id}"
+  identity_pool_id = aws_cognito_identity_pool.identity_pool.id
 
   roles = {
-    "authenticated"   = "${aws_iam_role.identity_pool_auth_role.arn}"
-    "unauthenticated" = "${aws_iam_role.identity_pool_unauth_role.arn}"
+    "authenticated"   = aws_iam_role.identity_pool_auth_role.arn
+    "unauthenticated" = aws_iam_role.identity_pool_unauth_role.arn
   }
 }
+
