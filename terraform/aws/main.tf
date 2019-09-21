@@ -86,11 +86,11 @@ EOF
 }
 
 resource "aws_vpc_endpoint" "main_vpc_endpoint_message_queues" {
-  vpc_id = aws_vpc.main_vpc.id
-  vpc_endpoint_type = "Interface"
-  service_name = "com.amazonaws.${var.region}.sqs"
-  subnet_ids = [aws_subnet.main_vpc_subnet_2.id]
-  security_group_ids = [aws_vpc.main_vpc.default_security_group_id]
+  vpc_id              = aws_vpc.main_vpc.id
+  vpc_endpoint_type   = "Interface"
+  service_name        = "com.amazonaws.${var.region}.sqs"
+  subnet_ids          = [aws_subnet.main_vpc_subnet_2.id]
+  security_group_ids  = [aws_vpc.main_vpc.default_security_group_id]
   private_dns_enabled = true
 
   policy = data.template_file.main_vpc_endpoint_message_queues_policy.rendered

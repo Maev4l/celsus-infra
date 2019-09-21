@@ -102,7 +102,7 @@ EOF
 }
 
 data "template_file" "identity_pool_unauth_role_policy" {
-template = <<EOF
+  template = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -126,24 +126,24 @@ template = <<EOF
 EOF
 
 
-vars = {
-cognito_identity_pool_id = aws_cognito_identity_pool.identity_pool.id
-}
+  vars = {
+    cognito_identity_pool_id = aws_cognito_identity_pool.identity_pool.id
+  }
 }
 
 resource "aws_iam_role" "identity_pool_unauth_role" {
-name = "celsus_identity_unauthenticated_role"
+  name = "celsus_identity_unauthenticated_role"
 
-assume_role_policy = data.template_file.identity_pool_unauth_role_policy.rendered
+  assume_role_policy = data.template_file.identity_pool_unauth_role_policy.rendered
 
-tags = local.tags
+  tags = local.tags
 }
 
 resource "aws_iam_role_policy" "unauthenticated" {
-name = "celsus_identity_unauthenticated_policy"
-role = aws_iam_role.identity_pool_unauth_role.id
+  name = "celsus_identity_unauthenticated_policy"
+  role = aws_iam_role.identity_pool_unauth_role.id
 
-policy = <<EOF
+  policy = <<EOF
 {
     "Version": "2012-10-17",
     "Statement": [
