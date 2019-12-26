@@ -21,24 +21,24 @@ data "aws_iam_policy_document" "webapp_s3_policy" {
 
     principals {
       type        = "AWS"
-      identifiers = ["${aws_cloudfront_origin_access_identity.origin_access_identity.iam_arn}"]
+      identifiers = [aws_cloudfront_origin_access_identity.origin_access_identity.iam_arn]
     }
   }
 
   statement {
     actions   = ["s3:ListBucket"]
-    resources = ["${aws_s3_bucket.web_app.arn}"]
+    resources = [aws_s3_bucket.web_app.arn]
 
     principals {
       type        = "AWS"
-      identifiers = ["${aws_cloudfront_origin_access_identity.origin_access_identity.iam_arn}"]
+      identifiers = [aws_cloudfront_origin_access_identity.origin_access_identity.iam_arn]
     }
   }
 }
 
 resource "aws_s3_bucket_policy" "web_app_bucket_policy" {
-  bucket = "${aws_s3_bucket.web_app.id}"
-  policy = "${data.aws_iam_policy_document.webapp_s3_policy.json}"
+  bucket = aws_s3_bucket.web_app.id
+  policy = data.aws_iam_policy_document.webapp_s3_policy.json
 }
 
 locals {
@@ -51,7 +51,7 @@ resource "aws_cloudfront_distribution" "web_app_distribution" {
     origin_id   = local.s3_origin_id
 
     s3_origin_config {
-      origin_access_identity = "${aws_cloudfront_origin_access_identity.origin_access_identity.cloudfront_access_identity_path}"
+      origin_access_identity = aws_cloudfront_origin_access_identity.origin_access_identity.cloudfront_access_identity_path
     }
   }
 
