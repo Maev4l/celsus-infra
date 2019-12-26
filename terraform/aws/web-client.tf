@@ -14,6 +14,15 @@ resource "aws_s3_bucket" "web_app" {
   tags = local.tags
 }
 
+resource "aws_s3_bucket_public_access_block" "web_app_public_access" {
+  bucket = aws_s3_bucket.web_app.id
+
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
+  restrict_public_buckets = true
+}
+
 data "aws_iam_policy_document" "webapp_s3_policy" {
   statement {
     actions   = ["s3:GetObject"]
