@@ -28,8 +28,10 @@ variable "core_storage_port" {
   description = "Port number for core storage"
 }
 
+/*
 variable "local_ips" {
   type        = list(string)
   description = "Local machine IP address"
 }
+*/
 
