@@ -9,8 +9,7 @@ resource "aws_cloudfront_origin_access_identity" "origin_access_identity" {
 
 resource "aws_s3_bucket" "web_app" {
   bucket = local.bucket_name
-  region = var.region
-
+  
   tags = local.tags
 }
 

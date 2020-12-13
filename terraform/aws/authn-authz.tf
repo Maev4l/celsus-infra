@@ -7,11 +7,11 @@ resource "aws_cognito_user_pool" "user_pool" {
     require_numbers   = "true"
     require_symbols   = "true"
     require_uppercase = "true"
+    temporary_password_validity_days = "7"
   }
 
   admin_create_user_config {
     allow_admin_create_user_only = "false"
-    unused_account_validity_days = "7"
   }
 
   user_pool_add_ons {
