@@ -98,3 +98,6 @@ output "webClientDistribution" {
   value = aws_cloudfront_distribution.web_app_distribution.id
 }
 
+output "imageResizeRepositoryUrl" {
+  value = aws_ecr_repository.image_resize_repository.repository_url
+}
