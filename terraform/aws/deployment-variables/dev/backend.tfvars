@@ -1,4 +1,4 @@
-bucket = "celsus-tf-state"
+bucket = "global-tf-states"
 
 region = "eu-central-1"
 

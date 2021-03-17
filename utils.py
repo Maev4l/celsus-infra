@@ -60,4 +60,5 @@ def save_infra_description(filename):
     key = f'celsus/{args.environment}/infra.json'
     s3.meta.client.upload_file(
         Filename=filename, Bucket=bucket, Key=key)
-    print(f'Infrastructure description {filename} saved into {key}')
+    print(
+        f'Infrastructure description {filename} saved into S3://{bucket}/{key}')
