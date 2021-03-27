@@ -9,7 +9,7 @@ resource "aws_cloudfront_origin_access_identity" "origin_access_identity" {
 
 resource "aws_s3_bucket" "web_app" {
   bucket = local.bucket_name
-  
+
   tags = local.tags
 }
 
@@ -66,6 +66,7 @@ resource "aws_cloudfront_distribution" "web_app_distribution" {
   default_root_object = "index.html"
   enabled             = "true"
   is_ipv6_enabled     = "true"
+  http_version        = "http2"
   wait_for_deployment = "false"
   aliases             = [local.bucket_name]
   price_class         = "PriceClass_100" // Only in EU and North America 
@@ -94,9 +95,10 @@ resource "aws_cloudfront_distribution" "web_app_distribution" {
   }
 
   viewer_certificate {
-    acm_certificate_arn      = data.aws_acm_certificate.main_certificate.arn
-    ssl_support_method       = "sni-only"
-    minimum_protocol_version = "TLSv1"
+    cloudfront_default_certificate = false
+    acm_certificate_arn            = data.aws_acm_certificate.main_certificate.arn
+    ssl_support_method             = "sni-only"
+    minimum_protocol_version       = "TLSv1.2_2019"
   }
 
   tags = local.tags
