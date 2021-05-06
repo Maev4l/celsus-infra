@@ -6,6 +6,7 @@ provider "aws" {
 data "aws_acm_certificate" "main_certificate" {
   provider = aws.us-east-1
   domain   = "*.isnan.eu"
+  types    = ["IMPORTED"]
 }
 
 data "aws_route53_zone" "primary" {
