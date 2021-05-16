@@ -98,4 +98,6 @@ output "webClientDistribution" {
   value = aws_cloudfront_distribution.web_app_distribution.id
 }
 
-
+output "imagesBucket" {
+  value = aws_s3_bucket.images_storage.id
+}

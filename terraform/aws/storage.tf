@@ -50,3 +50,24 @@ resource "aws_db_instance" "core_storage" {
   tags                       = local.tags
 }
 
+resource "aws_s3_bucket" "images_storage" {
+  bucket        = "celsus-images-storage"
+  force_destroy = true
+  cors_rule {
+    allowed_headers = ["*"]
+    allowed_methods = ["GET", "HEAD", "PUT", "POST", "DELETE"]
+    allowed_origins = ["*"]
+    expose_headers  = ["x-amz-server-side-encryption", "x-amz-request-id", "x-amz-id-2", "ETag"]
+    max_age_seconds = 3000
+  }
+  tags = local.tags
+}
+
+resource "aws_s3_bucket_public_access_block" "core_images_storage_policy" {
+  bucket = aws_s3_bucket.images_storage.id
+
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
+  restrict_public_buckets = true
+}
