@@ -14,6 +14,7 @@ data "aws_iam_policy_document" "webapp_s3_policy_dev" {
 
 // Policy for devs (so update of the S3 bucket containing the frontend assets is possible)
 resource "aws_iam_policy" "web_app_dev_policy" {
-  name   = "WriteWebAppS3Bucket"
-  policy = data.aws_iam_policy_document.webapp_s3_policy_dev.json
+  name       = "WriteWebAppS3Bucket"
+  policy     = data.aws_iam_policy_document.webapp_s3_policy_dev.json
+  depends_on = [aws_s3_bucket.web_app]
 }

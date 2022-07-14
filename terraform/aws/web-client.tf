@@ -8,9 +8,9 @@ resource "aws_cloudfront_origin_access_identity" "origin_access_identity" {
 
 
 resource "aws_s3_bucket" "web_app" {
-  bucket = local.bucket_name
-
-  tags = local.tags
+  bucket        = local.bucket_name
+  force_destroy = true
+  tags          = local.tags
 }
 
 resource "aws_s3_bucket_public_access_block" "web_app_public_access" {
